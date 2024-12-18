@@ -107,6 +107,8 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
     this.onSearchChange,
     this.closeOnBackButton = false,
     Key? key,
+    this.customSearchWidget,
+    this.scrollController,
   })  : future = null,
         super(key: key);
 
@@ -155,6 +157,8 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
     this.onSearchChange,
     this.closeOnBackButton = false,
     Key? key,
+    this.customSearchWidget,
+    this.scrollController,
   })  : items = const [],
         super(key: key);
 
@@ -172,6 +176,14 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
 
   /// The decoration of the dropdown.
   final DropdownDecoration dropdownDecoration;
+
+  /// Custom search widget instead of detault
+
+  final Widget? customSearchWidget;
+
+  /// Scroll contoller for controll scroll inside menu
+
+  final ScrollController? scrollController;
 
   /// The decoration of the search field.
   final SearchFieldDecoration searchDecoration;
@@ -427,6 +439,8 @@ class _MultiDropdownState<T extends Object> extends State<MultiDropdown<T>> {
                       : Offset(0, widget.dropdownDecoration.marginTop),
                   child: RepaintBoundary(
                     child: _Dropdown<T>(
+                      customSearchWidget: widget.customSearchWidget,
+                      scrollController: widget.scrollController,
                       decoration: widget.dropdownDecoration,
                       onItemTap: _handleDropdownItemTap,
                       width: renderBoxSize.width,

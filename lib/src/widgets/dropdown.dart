@@ -18,6 +18,8 @@ class _Dropdown<T> extends StatelessWidget {
     this.itemBuilder,
     this.itemSeparator,
     this.singleSelect = false,
+    this.customSearchWidget,
+    this.scrollController,
   }) : super(key: key);
 
   /// The decoration of the dropdown.
@@ -25,6 +27,14 @@ class _Dropdown<T> extends StatelessWidget {
 
   /// Whether the search field is enabled.
   final bool searchEnabled;
+
+  /// Custom search widget instead of detault
+
+  final Widget? customSearchWidget;
+
+  /// Scroll contoller for controll scroll inside menu
+
+  final ScrollController? scrollController;
 
   /// The width of the dropdown.
   final double width;
@@ -94,14 +104,16 @@ class _Dropdown<T> extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               if (searchEnabled)
-                _SearchField(
-                  decoration: searchDecoration,
-                  onChanged: _onSearchChange,
-                ),
+                customSearchWidget ??
+                    _SearchField(
+                      decoration: searchDecoration,
+                      onChanged: _onSearchChange,
+                    ),
               if (decoration.header != null)
                 Flexible(child: decoration.header!),
               Flexible(
                 child: ListView.separated(
+                  controller: scrollController,
                   separatorBuilder: (_, __) =>
                       itemSeparator ?? const SizedBox.shrink(),
                   shrinkWrap: true,
