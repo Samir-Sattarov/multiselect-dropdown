@@ -109,6 +109,7 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
     Key? key,
     this.customSearchWidget,
     this.scrollController,
+    this.iconColor,
   })  : future = null,
         super(key: key);
 
@@ -159,6 +160,7 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
     Key? key,
     this.customSearchWidget,
     this.scrollController,
+    this.iconColor,
   })  : items = const [],
         super(key: key);
 
@@ -177,12 +179,13 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
   /// The decoration of the dropdown.
   final DropdownDecoration dropdownDecoration;
 
-  /// Custom search widget instead of detault
+  /// Custom color for icons
+  final Color? iconColor;
 
+  /// Custom search widget instead of detault
   final Widget? customSearchWidget;
 
   /// Scroll contoller for controll scroll inside menu
-
   final ScrollController? scrollController;
 
   /// The decoration of the search field.
@@ -554,7 +557,10 @@ class _MultiDropdownState<T extends Object> extends State<MultiDropdown<T>> {
     if (widget.fieldDecoration.showClearIcon &&
         _dropdownController.selectedItems.isNotEmpty) {
       return GestureDetector(
-        child: const Icon(Icons.clear),
+        child: Icon(
+          Icons.clear,
+          color: widget.iconColor,
+        ),
         onTap: () {
           _dropdownController.clearAll();
           _formFieldKey.currentState
@@ -659,7 +665,11 @@ class _MultiDropdownState<T extends Object> extends State<MultiDropdown<T>> {
               width: 16,
               height: 16,
               child: chipDecoration.deleteIcon ??
-                  const Icon(Icons.close, size: 16),
+                  Icon(
+                    Icons.close,
+                    size: 16,
+                    color: widget.iconColor,
+                  ),
             ),
           ),
         ],
